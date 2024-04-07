@@ -2,7 +2,6 @@
 let untyped = '';
 let typed = '';
 let score = 0;
-let typeNum = 0;
 
 
 // 必要なHTML要素の取得
@@ -11,6 +10,7 @@ const typedfield = document.getElementById('typed');
 const wrap = document.getElementById('wrap');
 const start = document.getElementById('start');
 const count = document.getElementById('count');
+const typeNum = document.getElementById('typeNum');
 
 // 複数のテキストを格納する配列
 const textLists = [
@@ -60,12 +60,11 @@ const keyPress = e => {
   score++;
   wrap.classList.remove('mistyped');
   typed += untyped.substring(0, 1);
-  typeNum = typed.length;
-      // console.log(typed);
   untyped = untyped.substring(1);
-      // console.log(untyped);
   typedfield.textContent = typed;
   untypedfield.textContent = untyped;
+
+  typeCount(score);
 
   // テキストがなくなったら新しいテキストを表示
   if(untyped === '') {
@@ -120,8 +119,9 @@ const timer = () => {
 };
 
 //現在のタイプ数を表示する
-const typeCount = () => {};
-
+const typeCount = score => {
+  typeNum.textContent = score;
+};
 
 // ゲームスタート時の処理
 start.addEventListener('click', () => {
